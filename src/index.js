@@ -42,14 +42,14 @@ for (let i = 1; i <= 10; i++) {
         'Masculino'
     );
 
-    // console.log(usuario)
+    console.log(usuario)
 
-    // console.log('------------------------------------')
+    console.log('------------------------------------')
 
-    // console.log(usuario.alterarSenha(usuario.senha, '123', '123'))
+    console.log(usuario.alterarSenha(usuario.senha, '123', '123'))
 
-    // console.log('------------------------------------')
+    console.log('------------------------------------')
 
-    // console.log(usuario)
+    console.log(usuario)
 
 }
