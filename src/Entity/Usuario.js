@@ -1,7 +1,6 @@
 const Pessoa = require("./Pessoa");
 
 class Usuario extends Pessoa {
-    //Usuario
     id = 0;
     email = '';
     senha = '';
@@ -9,7 +8,6 @@ class Usuario extends Pessoa {
     constructor(id, email, senha, nome, sobreNome, documento, idade, sexo) {
         super(nome, sobreNome, documento, idade, sexo);
 
-        //Usuario
         this.id = id;
         this.email = email;
         this.senha = senha;
