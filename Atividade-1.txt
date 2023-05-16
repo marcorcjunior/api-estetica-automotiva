@@ -1,9 +1,0 @@
-Atividade 1
-Criar um projeto com o Objeto Usuario e com tudo estudado até o momento como a orientação a objeto!
-
-Projeto no github:
-https://github.com/marcorcjunior/api-estetica-automotiva/tree/Atividade1
-
-Execução:
-npm i
-nodemon src/index.js

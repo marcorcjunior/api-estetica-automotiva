@@ -1,13 +1,9 @@
-const Pessoa = require("./Pessoa");
-
-class Usuario extends Pessoa {
+class usuario {
     id = 0;
     email = '';
     senha = '';
 
-    constructor(id, email, senha, nome, sobreNome, documento, idade, sexo) {
-        super(nome, sobreNome, documento, idade, sexo);
-
+    constructor(id, email, senha ) {
         this.id = id;
         this.email = email;
         this.senha = senha;
@@ -27,4 +23,4 @@ class Usuario extends Pessoa {
     }
 }
 
-module.exports = Usuario;
+module.exports = usuario;

@@ -1,0 +1,14 @@
+Atividade 2
+Criar um projeto Express CRUD completo de Usuário em memória
+
+Seguir padrão MVC
+
+Utilizar do express para gerar as rotas
+
+Projeto no github:
+https://github.com/marcorcjunior/api-estetica-automotiva/tree/Atividade2
+
+
+Obrigatório:
+• Uso de rotas
+• Uso do Thunder Client
