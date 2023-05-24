@@ -1,41 +1,51 @@
-let usuarios = [
-    { id: 1, nome: "Usuario 1", email: "usuario1@email.com", senha: "usuario123" },
-    { id: 2, nome: "Usuario 2", email: "usuario2@email.com", senha: "usuario456" },
-    { id: 3, nome: "Usuario 3", email: "usuario3@email.com", senha: "usuario789" }
-];
+const mongoose = require("mongoose");
+const service = require("../service/usuario.service");
 
 //Pesquisa usuario pelo id
 const find = (req, res) => {
-    const id = req.params.id;
-    const registro = usuarios.find((user) => user.id == id);
+    const { id } = req.params;
 
-    if(registro == null) {
-        return res.status(404).send({ message: "Registro não encontrado!" });
-    }
+    service.findById(id)
+        .then((response) => {
+            if (response == null) {
+                return res.status(404).send({ message: "Registro não encontrado!" });
+            }
 
-    return res.send(registro);
+            return res.status(200).send(response);
+        })
+        .catch((error) => {
+            console.log(`Erro: ${error}`);
+            return res.status(500).send({ message: "Erro no servidor, tente novamente mais tarde!" });
+        });
 }
 
 //Lista todos os usuarios
 const findAll = (req, res) => {
-    return res.send(usuarios);
+    service.find()
+        .then((response) => {
+            return res.send(response);
+        })
+        .catch((error) => {
+            console.log(`Erro: ${error}`);
+            return res.status(500).send({ message: "Erro no servidor, tente novamente mais tarde!" });
+        })
 }
 
 // Validação do body para create e update
 const validaBody = (body) => {
-    if(Object.keys(body).length === 0) {
+    if (Object.keys(body).length === 0) {
         return { message: "Corpo da requisição não possui dados!" };
     }
 
-    if(body.nome == null) {
+    if (body.nome == null) {
         return { message: "Nome não foi informado!" };
     }
 
-    if(body.email == null) {
+    if (body.email == null) {
         return { message: "E-mail não foi informado!" };
     }
 
-    if(body.senha == null) {
+    if (body.senha == null) {
         return { message: "Senha não foi informada!" };
     }
 
@@ -47,42 +57,53 @@ const create = (req, res) => {
     const body = req.body;
     const validarBody = validaBody(body);
 
-    if(validarBody != null) {
+    if (validarBody != null) {
         return res.status(400).send(validarBody);
     }
 
-    usuarios.push(body);
-    return res.status(201).send({ message: "Criação de registro efetuada com sucesso!", usuarios });
+    service.create(body)
+        .then(() => {
+            return res.status(201).send({ message: "Criação de registro efetuada com sucesso!" });
+        })
+        .catch((error) => {
+            console.log(`Erro: ${error}`);
+            return res.status(500).send({ message: "Criação de registro não efetuada!" })
+        });
 }
 
 // Update de usuario a partir do body
 const update = (req, res) => {
-    const id = req.params.id;
+    const { id } = req.params;
     const body = req.body;
     const validarBody = validaBody(body);
 
-    if(validarBody != null) {
+    if (validarBody != null) {
         return res.status(400).send(validarBody);
     }
 
-    usuarios = usuarios.map((user) => {
-        if(user.id == id) {
-            return body;
-        }
-        return user;
-    });
-
-    return res.status(201).send({ message: "Atualização de registro efetuada com sucesso!", usuarios });
+    service.findByIdAndUpdate(id, body)
+        .then((response) => {
+            return res.status(201).send({ message: "Atualização de registro efetuada com sucesso!", response });
+        })
+        .catch((error) => {
+            console.log(`Erro: ${error}`);
+            return res.status(500).send({ message: "Atualização de registro não efetuada! Erro no servidor, tente novamente mais tarde!" });
+        });
 }
 
 // Delete de usuario apartir do id
 const remove = (req, res) => {
-    const id = req.params.id;
+    const { id } = req.params;
 
-    usuarios = usuarios.filter((user) => user.id != id);
-
-    return res.status(201).send({ message: "Registro removido com sucesso!", usuarios });
-} 
+    service.findByIdAndRemove(id)
+        .then(() => {
+            return res.status(201).send({ message: "Registro removido com sucesso!" });
+        })
+        .catch((error) => {
+            console.log(`Erro: ${error}`);
+            return res.status(500).send({ message: "Registro não removido!" })
+        });
+}
 
 module.exports = {
     find,

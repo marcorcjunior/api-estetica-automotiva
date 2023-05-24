@@ -1,0 +1,14 @@
+Atividade 3
+Projeto Express CRUD completo de Usuário salvando no banco
+• Seguir padrão MVC
+• Conexão com o banco via mongoose
+• Token JWT implementado
+
+Projeto no github:
+https://github.com/marcorcjunior/api-estetica-automotiva/tree/Atividade3    
+
+
+Obrigatório:
+• Uso de rotas
+• JWT
+• Uso do Thunder Client
