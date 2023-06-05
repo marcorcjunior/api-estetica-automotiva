@@ -1,7 +1,6 @@
-const mongoose = require("mongoose");
-const service = require("../service/usuario.service");
+const service = require("../service/cliente.service");
 
-//Pesquisa usuario pelo id
+//Pesquisa cliente pelo id
 const find = (req, res) => {
     const { id } = req.params;
 
@@ -19,25 +18,8 @@ const find = (req, res) => {
         });
 }
 
-//Lista todos os usuarios
+//Lista todos os clientes
 const findAll = (req, res) => {
-    const { email } = req.query;
-
-    if (email) {
-        return service.findFromKeyAndValue('email', email)
-            .then((response) => {
-                if (response == null) {
-                    return res.status(404).send({ message: "Registro não encontrado!" });
-                }
-
-                return res.status(200).send(response);
-            })
-            .catch((error) => {
-                console.log(`Erro: ${error}`);
-                return res.status(500).send({ message: "Erro no servidor, tente novamente mais tarde!" });
-            });
-    }
-
     service.find()
         .then((response) => {
             return res.send(response);
@@ -62,14 +44,10 @@ const validaBody = (body) => {
         return { message: "E-mail não foi informado!" };
     }
 
-    if (body.senha == null) {
-        return { message: "Senha não foi informada!" };
-    }
-
     return null;
 }
 
-// Create de usuario a partir do body
+// Create de cliente a partir do body
 const create = (req, res) => {
     const body = req.body;
     const validarBody = validaBody(body);
@@ -88,7 +66,7 @@ const create = (req, res) => {
         });
 }
 
-// Update de usuario a partir do body
+// Update de cliente a partir do body
 const update = (req, res) => {
     const { id } = req.params;
     const body = req.body;
@@ -108,7 +86,7 @@ const update = (req, res) => {
         });
 }
 
-// Delete de usuario apartir do id
+// Delete de cliente apartir do id
 const remove = (req, res) => {
     const { id } = req.params;
 
